@@ -250,7 +250,7 @@ namespace MisakaTranslator_WPF {
 
             Common.textHooker = pidList.Count == 1 ? new TextHookHandle(pidList[0].Id) : new TextHookHandle(pidList);
 
-            if(!Common.textHooker.Init(!gameInfoList[gid].Isx64))
+            if (!Common.textHooker.Init(gameInfoList[gid].Isx64 ? Common.appSettings.Textractor_Path64 : Common.appSettings.Textractor_Path32))
             {
                 HandyControl.Controls.MessageBox.Show(Application.Current.Resources["MainWindow_TextractorError_Hint"].ToString());
                 return;
@@ -439,6 +439,11 @@ namespace MisakaTranslator_WPF {
                 panel.SetValue(gw, sp);
                 this.Closing += (o, e) => gw.GetType().GetMethod("Close").Invoke(gw, null); // 关闭主窗口时关闭GrowlWindow否则程序无法退出
             }
+        }
+
+        private void LanguageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageContextMenu.IsOpen = true;
         }
     }
 }
